@@ -835,7 +835,9 @@ class GenericDownloadFunction:
 
         os.chdir(download_dir)
         try:
-            temp = urllib.request.urlopen(url)
+            headers = {'User-Agent': 'Debian APT/2.0 (Debian) https://www.debian.org/'}
+            req = urllib.request.Request(url, headers=headers)
+            temp = urllib.request.urlopen(req)
             headers = temp.info()
             size = headers.get("Content-Length")
             if size is not None:
